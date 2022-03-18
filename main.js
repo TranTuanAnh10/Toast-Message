@@ -6,7 +6,18 @@ function toast({
 }){
     const main = document.getElementById('toast');
     if(main){
+
+        const autoRemoveId =  setTimeout(function(){
+            main.removeChild(toast);
+        }, duration + 1000)
+
         const toast = document.createElement('div');
+
+        toast.onclick = function(e){
+            if(e.target.closest('.toast__close'));
+            main.removeChild(toast);
+            clearTimeout(autoRemoveId);
+        }
         const delay = (duration / 1000).toFixed(2);
         toast.classList.add('toast', `toast--${type}`);
         toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
@@ -39,7 +50,7 @@ function showSuccess(){
     title: 'Success',
     message: 'Peaky Blinders một băng đảng khét tiếng xuất hiện ở Birmingham',
     type: 'success',
-    duration: 3000
+    duration: 5000
 })
 }
 function showError(){
@@ -47,6 +58,6 @@ function showError(){
     title: 'Error',
     message: 'Peaky Blinders một băng đảng khét tiếng xuất hiện ở Birmingham',
     type: 'error',
-    duration: 3000
+    duration: 5000
 })
 }
